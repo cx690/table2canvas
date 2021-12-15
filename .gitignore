@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+esm
+cjs
+*.local
+/yarn-error.log
+/.npmrc
+/.yarnrc
+/a.png

@@ -1,0 +1,53 @@
+{
+  "name": "table2canvas",
+  "version": "1.0.0",
+  "description": "Draw table on canvas for node and browser!",
+  "author": "caixue 1256953820@qq.com",
+  "license": "MIT",
+  "type": "module",
+  "types": "./esm/index.d.ts",
+  "main": "./cjs/index.cjs",
+  "module": "./esm/index.js",
+  "exports": {
+    "import": "./esm/index.js",
+    "require": "./cjs/index.cjs"
+  },
+  "keywords": [
+    "node",
+    "canvas",
+    "table",
+    "image"
+  ],
+  "scripts": {
+    "test": "node --experimental-specifier-resolution=node --loader ts-node/esm src/test.ts",
+    "build": "rollup -c",
+    "type": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.1.1",
+    "@types/node": "^16.7.6",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "canvas": "^2.8.0",
+    "eslint": "^7.32.0",
+    "rollup": "^2.61.1",
+    "rollup-plugin-clear": "^2.0.7",
+    "rollup-plugin-typescript2": "^0.31.1",
+    "ts-node": "^10.4.0",
+    "typescript": "4.4.4"
+  },
+  "files": [
+    "esm",
+    "cjs",
+    "demo.png"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "url": "https://github.com/cx690/table2canvas"
+  },
+  "engines": {
+    "node": ">=13"
+  }
+}
