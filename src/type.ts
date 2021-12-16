@@ -5,6 +5,10 @@ export interface TableOpt<T extends Record<string, any> = any> {
     padding?: number | number[];
     columns: IColumn<T>[];
     dataSource?: T[];
+    /** canvas's width default 'atuo',0 is also 'auto' */
+    width?: number | 'auto';
+    /** canas's height default 'atuo',0 is also 'auto' */
+    height?: number | 'auto';
     /** canvas's background color default 'transparent' */
     bgColor?: string;
     /** Table's title */

@@ -127,6 +127,8 @@ document.body.appendChild(table.canvas);
 | Property | Description | type |  Default | Required |
 | :----: | :----: | :----: | :----: | :----: |
 | canvas | Draw table to whitch canvas | Canvas \| HTMLCanvasElement | - | yes |
+| width | canvas's width | number \| 'auto' | 'auto' | no |
+| height | canvas's height | number \| 'auto' | 'auto' | no |
 | bgColor | canvas's background color | string | 'transparent' | no |
 | padding | Table in canvas's padding | number \| number[] | 10 | no |
 | columns | columns config |  IColumn[] | - | yes |

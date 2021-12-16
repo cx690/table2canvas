@@ -34,8 +34,10 @@ class Table2canvas<T extends Record<string, any> = any>{
     bottom = 10;
     style: Required<TableStyle>;
     padding: [number, number, number, number];
+    width: number | 'auto';
+    height: number | 'auto';
     ctx: NodeCanvasRenderingContext2D;
-    constructor({ canvas, padding, columns, dataSource = [], style, bgColor, text, textStyle }: TableOpt<T>) {
+    constructor({ canvas, padding, columns, dataSource = [], style, bgColor, text, textStyle, width, height }: TableOpt<T>) {
         this.canvas = canvas;
         this.sourceColumns = columns;
         this.dataSource = dataSource || [];
@@ -43,6 +45,8 @@ class Table2canvas<T extends Record<string, any> = any>{
         this.style = _style;
         this.bgColor = bgColor ?? 'transparent';
         this.text = text;
+        this.width = width || 'auto';
+        this.height = height || 'auto';
         this.padding = handlePadding(padding);
         this.textStyle = {
             ...this.textStyle,
@@ -72,19 +76,11 @@ class Table2canvas<T extends Record<string, any> = any>{
         })
 
         this.flatColumns = flatColumns(this.columns);
-        this.resize();
-        this.initCtxStatus();
-
         this.render();
     }
 
     private render() {
-        const { ctx, canvas } = this;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.save();
-        ctx.fillStyle = this.bgColor;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.restore();
+        this.resize();
         this.renderTh();
         this.renderTr();
         this.renderTitle();
@@ -158,6 +154,7 @@ class Table2canvas<T extends Record<string, any> = any>{
     }
 
     resize() {
+        const { ctx, canvas } = this;
         const length = this.dataSource?.length || 2;
         const maxThRowNum = Math.max(...this.flatColumns.map(v => v.deep));
         let width = 0;
@@ -172,15 +169,37 @@ class Table2canvas<T extends Record<string, any> = any>{
         const [top, right, bottom, left] = this.padding;
         width = width + left + right;
         height = height + top + bottom;
-        this.canvas.width = width;
-        this.canvas.height = height;
+
+        let scale = 1
+        if (this.width === 'auto' && this.height !== 'auto') {
+            scale = height / this.height;
+
+        } else if (this.width !== 'auto' && this.height === 'auto') {
+            scale = width / this.width;
+
+        } else if (this.width !== 'auto' && this.height !== 'auto') {
+            scale = Math.max(width / this.width, height / this.height);
+        }
+        scale = scale || 1;
+        scale = 1 / scale;
+
+        canvas.width = width * scale;
+        canvas.height = height * scale;
+        this.initCtxStatus();
+
+        //background color
+        ctx.save();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = this.bgColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.restore();
+
+        ctx.scale(scale, scale);
     }
 
     appendData(dataSource: T[]) {
         if (dataSource.length) {
             this.dataSource = this.dataSource.concat(dataSource);
-            this.resize();
-            this.initCtxStatus();
             this.render();
         }
     }
