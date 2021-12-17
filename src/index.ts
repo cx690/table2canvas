@@ -37,7 +37,7 @@ class Table2canvas<T extends Record<string, any> = any>{
     width: number | 'auto';
     height: number | 'auto';
     ctx: NodeCanvasRenderingContext2D;
-    constructor({ canvas, padding, columns, dataSource = [], style, bgColor, text, textStyle, width, height }: TableOpt<T>) {
+    constructor({ canvas, padding, columns = [], dataSource = [], style, bgColor, text, textStyle, width, height }: TableOpt<T>) {
         this.canvas = canvas;
         this.sourceColumns = columns;
         this.dataSource = dataSource || [];
