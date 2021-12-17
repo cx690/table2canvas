@@ -66,7 +66,6 @@ const columns = [
             },
             {
                 title: 'c+d',
-                dataIndex: 'c',
                 children: [
                     {
                         title: 'c',

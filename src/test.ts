@@ -55,7 +55,6 @@ const columns: IColumn[] = [
             },
             {
                 title: 'c+d',
-                dataIndex: 'c',
                 children: [
                     {
                         title: 'c',
