@@ -25,7 +25,13 @@ function getConfig(format) {
             resolve({
                 extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx']
             }),
-            typescript(),
+            typescript({
+                tsconfigOverride: {
+                    exclude: [
+                        "src/test.ts"
+                    ]
+                }
+            }),
         ],
 
     }
