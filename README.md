@@ -141,10 +141,14 @@ document.body.appendChild(table.canvas);
 | Property | Description | type |  Default | Required |
 | :----: | :----: | :----: | :----: | :----: |
 | title | Table's td text | string | - | yes |
-| titleColor | title's color | string | 'rgba(0,0,0,0.85)' | no |
 | dataIndex | Display field of the data recordg |  string | - | no |
+| titleColor | title's color | string | 'rgba(0,0,0,0.85)' | no |
+| titleFontWeight | title's font weight | string | 'bold' | no |
+| titleFontSize | title's font size | string | inherit TableStyle.fontSize | no |
 | textAlign | The specify which way that column is aligned | 'left' \| 'right' \| 'center' | 'left' | no |
 | textColor | Color of column's body | string | 'rgba(0,0,0,0.85)' | no |
+| textFontWeight | font weight of column's body | string | '' | no |
+| textFontSize | font size of column's body | string | inherit TableStyle.fontSize | no |
 | width | Width of this column | number | defaultStyle.columnWidth | no |
 | children | Group table head | IColumn[] | - | no |
 | render | custom render,if is string,{c} is row[dataIndex] | string \| Function | - | no |

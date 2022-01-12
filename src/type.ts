@@ -22,14 +22,22 @@ export interface TableOpt<T extends Record<string, any> = any> {
 export interface IColumn<T extends Record<string, any> = any> {
     /** Table's td text */
     title: string;
-    /** color of column's head defaule 'rgba(0,0,0,0.85)' */
-    titleColor?: string;
     /** Display field of the data record */
     dataIndex?: string;
+    /** color of column's head defaule 'rgba(0,0,0,0.85)' */
+    titleColor?: string;
+    /** font weight of column's head defaule 'bold' */
+    titleFontWeight?: string;
+    /** font size of column's head defaule inherit TableStyle.fontSize */
+    titleFontSize?: string;
     /** The specify which way that column is aligned default 'left'  */
     textAlign?: 'left' | 'right' | 'center';
     /** color of column's body defaule 'rgba(0,0,0,0.85)' */
     textColor?: string;
+    /** font weight of column's body defaule '' */
+    textFontWeight?: string;
+    /** font size of column's body defaule inherit TableStyle.fontSize */
+    textFontSize?: string;
     /** Width of this column */
     width?: number;
     /** Group table head */

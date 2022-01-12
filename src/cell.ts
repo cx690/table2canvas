@@ -5,7 +5,7 @@ export function renderTr<T extends Record<string, any> = any>(ctx: NodeCanvasRen
     let x = 0;
     const { paddingL, paddingR } = getPaddingLR(flatColumns[0]?.config.paddingLR);
     for (const { config: item } of flatColumns) {
-        const { render, dataIndex, textColor, textAlign, fontSize, fontFamily, borderColor } = item;
+        const { render, dataIndex, textColor, textAlign, fontSize = '14px', fontFamily, borderColor, textFontSize, textFontWeight } = item;
         let { width } = item;
         let height = rowHeight;
         let text: string = '';
@@ -28,7 +28,7 @@ export function renderTr<T extends Record<string, any> = any>(ctx: NodeCanvasRen
         } else if (dataIndex) {
             text = row[dataIndex] ?? '';
         }
-        if (width && height) {
+        if (width && height && text !== '') {
             ctx.save();
             ctx.strokeStyle = borderColor!;
             ctx.strokeRect(x, 0, width, height);
@@ -39,7 +39,7 @@ export function renderTr<T extends Record<string, any> = any>(ctx: NodeCanvasRen
             const textWidth = getTextWidth(width, paddingL, paddingR);
             ctx.textAlign = textAlign ?? 'left';
             textColor && (ctx.fillStyle = textColor);
-            fontSize && (ctx.font = `${fontSize} ${fontFamily}`);
+            ctx.font = `${textFontWeight ?? ''} ${textFontSize ?? fontSize} ${fontFamily}`;
             if (textAlign === 'center') {
                 ctx.textAlign = 'center';
                 ctx.fillText(text, x + 0.5 * width, midY, textWidth);
