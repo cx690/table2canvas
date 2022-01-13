@@ -28,27 +28,29 @@ export function renderTr<T extends Record<string, any> = any>(ctx: NodeCanvasRen
         } else if (dataIndex) {
             text = row[dataIndex] ?? '';
         }
-        if (width && height && text !== '') {
+        if (width && height) {
             ctx.save();
             ctx.strokeStyle = borderColor!;
             ctx.strokeRect(x, 0, width, height);
             ctx.stroke();
             ctx.restore();
-            ctx.save();
-            const midY = height * 0.5;
-            const textWidth = getTextWidth(width, paddingL, paddingR);
-            ctx.textAlign = textAlign ?? 'left';
-            textColor && (ctx.fillStyle = textColor);
-            ctx.font = `${textFontWeight ?? ''} ${textFontSize ?? fontSize} ${fontFamily}`;
-            if (textAlign === 'center') {
-                ctx.textAlign = 'center';
-                ctx.fillText(text, x + 0.5 * width, midY, textWidth);
-            } else if (textAlign === 'right') {
-                ctx.fillText(text, x + width - paddingR, midY, textWidth);
-            } else {
-                ctx.fillText(text, x + paddingL, midY, textWidth);
+            if (text !== '') {
+                ctx.save();
+                const midY = height * 0.5;
+                const textWidth = getTextWidth(width, paddingL, paddingR);
+                ctx.textAlign = textAlign ?? 'left';
+                textColor && (ctx.fillStyle = textColor);
+                ctx.font = `${textFontWeight ?? ''} ${textFontSize ?? fontSize} ${fontFamily}`;
+                if (textAlign === 'center') {
+                    ctx.textAlign = 'center';
+                    ctx.fillText(text, x + 0.5 * width, midY, textWidth);
+                } else if (textAlign === 'right') {
+                    ctx.fillText(text, x + width - paddingR, midY, textWidth);
+                } else {
+                    ctx.fillText(text, x + paddingL, midY, textWidth);
+                }
+                ctx.restore();
             }
-            ctx.restore();
         }
         x += item.width;
     }

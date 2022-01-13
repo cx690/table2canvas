@@ -42,7 +42,7 @@ export class Column {
 
 
 export function renderTh(ctx: NodeCanvasRenderingContext2D, item: Column, x = 0, y = 0) {
-    const { borderColor, titleColor, textAlign, title, fontFamily, fontSize, bgColor, titleFontSize, titleFontWeight = 'bold' } = item.config as Required<IColumn & BaseConfig>;
+    const { borderColor, titleColor, textAlign, title, fontFamily, fontSize = '14px', bgColor, titleFontSize, titleFontWeight = 'bold' } = item.config as Required<IColumn & BaseConfig>;
     const { width, height, textWidth, paddingL, paddingR, children } = item;
     ctx.save();
     ctx.strokeStyle = borderColor!;
