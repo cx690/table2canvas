@@ -51,6 +51,9 @@ export interface CellInfo {
     text?: string | null;
     colSpan?: number;
     rowSpan?: number;
+    textColor?: string;
+    textFontSize?: string;
+    textFontWeight?: string;
 }
 
 export interface TableStyle {

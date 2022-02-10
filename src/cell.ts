@@ -5,7 +5,8 @@ export function renderTr<T extends Record<string, any> = any>(ctx: NodeCanvasRen
     let x = 0;
     const { paddingL, paddingR } = getPaddingLR(flatColumns[0]?.config.paddingLR);
     for (const { config: item } of flatColumns) {
-        const { render, dataIndex, textColor, textAlign, fontSize = '14px', fontFamily, borderColor, textFontSize, textFontWeight } = item;
+        const { render, dataIndex, textAlign, fontSize = '14px', fontFamily, borderColor } = item;
+        let { textColor, textFontSize, textFontWeight } = item;
         let { width } = item;
         let height = rowHeight;
         let text: string = '';
@@ -19,6 +20,9 @@ export function renderTr<T extends Record<string, any> = any>(ctx: NodeCanvasRen
             const res = render(dataIndex ? (row[dataIndex] ?? '') : '', row, i);
             if (res && typeof res === 'object') {
                 const { rowSpan = 1, colSpan = 1 } = res;
+                res.textColor && (textColor = res.textColor);
+                res.textFontSize && (textFontSize = res.textFontSize);
+                res.textFontWeight && (textFontWeight = res.textFontWeight);
                 text = res.text ?? '';
                 width = width * colSpan;
                 height = height * rowSpan;
