@@ -149,6 +149,7 @@ document.body.appendChild(table.canvas);
 | textColor | Color of column's body | string | 'rgba(0,0,0,0.85)' | no |
 | textFontWeight | font weight of column's body | string | '' | no |
 | textFontSize | font size of column's body | string | inherit TableStyle.fontSize | no |
+| textOverflow | text overflow show type | 'auto' \| 'ellipsis' | 'auto' | no |
 | width | Width of this column | number | defaultStyle.columnWidth | no |
 | children | Group table head | IColumn[] | - | no |
 | render | custom render,if is string,{c} is row[dataIndex] | string \| Function | - | no |
@@ -166,4 +167,5 @@ document.body.appendChild(table.canvas);
 | fontSize | fontSize of table | string | '14px' | no |
 | fontFamily | fontFamily of table | string | 'sans-serif' | no |
 | headerBgColor | background color of header cell | string | 'rgba(0,0,0,0.02)' | no |
+| background | background color of table | string | - | no|
 | paddingLR | both left and right padding of table cell | number \| [number, number] | 8 | no |

@@ -13,7 +13,8 @@ const defaultStyle: Required<TableStyle> = {
     fontSize: '14px',
     fontFamily: 'sans-serif',
     headerBgColor: 'rgba(0,0,0,0.02)',
-    paddingLR: 8
+    paddingLR: 8,
+    background: null,
 }
 
 class Table2canvas<T extends Record<string, any> = any>{
@@ -187,11 +188,17 @@ class Table2canvas<T extends Record<string, any> = any>{
         canvas.height = height * scale;
         this.initCtxStatus();
 
-        //background color
+
         ctx.save();
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = this.bgColor;
+        //canvas background color
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+        //table background color
+        if (this.style.background) {
+            ctx.fillStyle = this.style.background;
+            ctx.fillRect(top * scale, left * scale, this.tableWidth * scale, this.tableHeight * scale);
+        }
         ctx.restore();
 
         ctx.scale(scale, scale);

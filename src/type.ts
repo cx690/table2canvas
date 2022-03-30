@@ -38,6 +38,8 @@ export interface IColumn<T extends Record<string, any> = any> {
     textFontWeight?: string;
     /** font size of column's body defaule inherit TableStyle.fontSize */
     textFontSize?: string;
+    /** default auto */
+    textOverflow?: 'auto' | 'ellipsis';
     /** Width of this column */
     width?: number;
     /** Group table head */
@@ -77,6 +79,8 @@ export interface TableStyle {
     headerBgColor?: string;
     /** both left and right padding of table cell  default 8*/
     paddingLR?: number | [number, number];
+    /** table background*/
+    background?: string | null;
 }
 
 export interface TextStyle {
