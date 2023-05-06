@@ -1,4 +1,4 @@
-import { Canvas, NodeCanvasRenderingContext2D } from 'canvas';
+import { Canvas } from 'canvas';
 import { renderTr } from './cell';
 import { Column, flatColumns, genColumns, renderTh } from './column';
 import { IColumn, TableStyle, TableOpt, TextStyle } from './type';
@@ -37,7 +37,7 @@ class Table2canvas<T extends Record<string, any> = any>{
     padding: [number, number, number, number];
     width: number | 'auto';
     height: number | 'auto';
-    ctx: NodeCanvasRenderingContext2D;
+    ctx: CanvasRenderingContext2D;
     constructor({ canvas, padding, columns = [], dataSource = [], style, bgColor, text, textStyle, width, height }: TableOpt<T>) {
         this.canvas = canvas;
         this.sourceColumns = columns;

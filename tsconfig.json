@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2015", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "lib": [
+      "DOM",
       "ESNext"
     ], /* Specify a set of bundled library declaration files that describe the target runtime environment. */
     "experimentalDecorators": true, /* Enable experimental support for TC39 stage 2 draft decorators. */

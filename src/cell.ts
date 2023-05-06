@@ -1,7 +1,6 @@
-import { NodeCanvasRenderingContext2D } from "canvas";
 import { Column, getPaddingLR, getTextWidth } from "./column";
 
-export function renderTr<T extends Record<string, any> = any>(ctx: NodeCanvasRenderingContext2D, row: T, i: number, flatColumns: Column[], rowHeight: number) {
+export function renderTr<T extends Record<string, any> = any>(ctx: CanvasRenderingContext2D, row: T, i: number, flatColumns: Column[], rowHeight: number) {
     let x = 0;
     const { paddingL, paddingR } = getPaddingLR(flatColumns[0]?.config.paddingLR);
     for (const { config: item } of flatColumns) {
