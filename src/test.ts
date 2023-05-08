@@ -78,7 +78,6 @@ const dataSource: any[] = [
     { first: 'Jack', last: 'smith', age: 26, weight: 60, address: 'street9527123456789no.,it is a to long adress!', a: 'a2', b: 'b2', c: 'c2', d: 'd2' },
     { first: 'Jack', last: 'last', age: 36, weight: 70, address: 'where', a: 'merge-a+b\nline2\nline3', b: 'merge-a+b', c: 'c3', d: 'd3' },
     { first: 'Tom', last: 'last', age: 46, weight: 80, address: 'where', a: 'merge-a+b', b: 'merge-a+b', c: 'c4', d: 'd4' },
-    { first: 'Merge2Row', last: 'last', age: 25, weight: 60, address: 'where', a: 'a2', b: 'b2', c: 'c2', d: 'd2' },
 ]
 
 const table = new Table2canvas({

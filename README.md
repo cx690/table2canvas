@@ -26,9 +26,12 @@ const columns = [
                 dataIndex: 'last',
                 render: (text, row, i) => {
                     if (i === 0) {
-                        return { text, rowSpan: 2 }
+                        return { text, rowSpan: 3 }
                     }
                     if (i === 1) {
+                        return { text, rowSpan: 0 }
+                    }
+                    if (i === 2) {
                         return { text, rowSpan: 0 }
                     }
                     return text;
@@ -81,10 +84,10 @@ const columns = [
     }
 ]
 
-const dataSource = [
-    { first: 'Jack', last: 'smith', age: 16, weight: 50, address: 'where', a: 'a1', b: 'b1', c: 'c1', d: 'd1' },
-    { first: 'Jack', last: 'smith', age: 26, weight: 60, address: 'where', a: 'a2', b: 'b2', c: 'c2', d: 'd2' },
-    { first: 'Jack', last: 'last', age: 36, weight: 70, address: 'where', a: 'merge-a+b', b: 'merge-a+b', c: 'c3', d: 'd3' },
+const dataSource: any[] = [
+    { first: 'Jack', last: 'smith', age: 16, weight: 50, address: '1.somewhere\n2.somewhere', a: 'a1', b: 'b1', c: 'c1', d: 'd1' },
+    { first: 'Jack', last: 'smith', age: 26, weight: 60, address: 'street9527123456789no.,it is a to long adress!', a: 'a2', b: 'b2', c: 'c2', d: 'd2' },
+    { first: 'Jack', last: 'last', age: 36, weight: 70, address: 'where', a: 'merge-a+b\nline2\nline3', b: 'merge-a+b', c: 'c3', d: 'd3' },
     { first: 'Tom', last: 'last', age: 46, weight: 80, address: 'where', a: 'merge-a+b', b: 'merge-a+b', c: 'c4', d: 'd4' },
 ]
 
@@ -93,11 +96,13 @@ const table = new Table2canvas({
     columns: columns,
     dataSource: dataSource,
     bgColor: '#fff',
+    text: 'This is table title!',
 })
 
 const buffer = table.canvas.toBuffer();
 
-fs.writeFileSync('demo.png', buffer);
+fs.writeFileSync('a.png', buffer);
+
 ```
 
 result:demo.png
@@ -134,7 +139,7 @@ document.body.appendChild(table.canvas);
 | dataSource | dataSource for table | Record<string,any> | - | - |
 | style | Table's style | TableStyle | ... | no |
 | text | Table's title | string | - | no |
-| textStyle | Table's title style(color,fontSize,textAlign) | TextStyle | ... | no |
+| textStyle | Table's title style(color,fontSize,fontFamily,textAlign,lineHeight) | TextStyle | ... | no |
 
 ### IColumn
 
@@ -158,8 +163,6 @@ document.body.appendChild(table.canvas);
 
 | Property | Description | type |  Default | Required |
 | :----: | :----: | :----: | :----: | :----: |
-| headerRowHeight | height of header cell default value of rowHeight | number | 55 | no |
-| rowHeight | height of each row | number | 55 | no |
 | columnWidth | default width of all columns | number | 150 | no |
 | borderColor | color of border | string | '#e8e8e8' | no |
 | textAlign | The specify which way that column is aligned | string | 'left' | no |
@@ -168,4 +171,4 @@ document.body.appendChild(table.canvas);
 | fontFamily | fontFamily of table | string | 'sans-serif' | no |
 | headerBgColor | background color of header cell | string | 'rgba(0,0,0,0.02)' | no |
 | background | background color of table | string | - | no|
-| paddingLR | both left and right padding of table cell | number \| [number, number] | 8 | no |
+| padding | padding of table cell | number \| number[] | 16 | no |
