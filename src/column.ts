@@ -1,4 +1,4 @@
-import { IColumn } from "./type";
+import { IColumn } from "./type.js";
 
 export interface BaseConfig {
     /** 单元格的基本宽度 */
@@ -6,7 +6,7 @@ export interface BaseConfig {
     /** 单元格的基本高度 */
     height: number;
     borderColor?: string;
-    paddingLR: [number, number] | number;
+    padding: number[];
     fontSize: string;
     fontFamily: string;
     bgColor: string;
@@ -22,8 +22,6 @@ export class Column {
     parent: Column | null;
     config: IColumn & BaseConfig;
     children?: Column[];
-    paddingL: number = 0;
-    paddingR: number = 0;
     deep = 1;
     colSpan = 1;
     constructor(column: IColumn, baseConfig: BaseConfig, parent: Column | null = null, deep = 1) {
@@ -39,46 +37,8 @@ export class Column {
     }
 }
 
-
-export function renderTh(ctx: CanvasRenderingContext2D, item: Column, x = 0, y = 0) {
-    const { borderColor, titleColor, textAlign, title, fontFamily, fontSize = '14px', bgColor, titleFontSize, titleFontWeight = 'bold' } = item.config as Required<IColumn & BaseConfig>;
-    const { width, height, textWidth, paddingL, paddingR, children } = item;
-    ctx.save();
-    ctx.strokeStyle = borderColor!;
-    ctx.fillStyle = bgColor;
-    ctx.fillRect(x, y, width, height);
-    ctx.strokeRect(x, y, width, height);
-    ctx.stroke();
-    ctx.restore();
-    ctx.save();
-    titleColor && (ctx.fillStyle = titleColor);
-    ctx.textAlign = textAlign ?? 'left';
-    ctx.font = `${titleFontWeight} ${titleFontSize ?? fontSize} ${fontFamily}`;
-    const midY = y + 0.5 * height;
-    if (textAlign === 'center' || children?.length) {
-        ctx.textAlign = 'center';
-        ctx.fillText(title, x + 0.5 * width, midY, textWidth);
-    } else if (textAlign === 'right') {
-        ctx.fillText(title, x + width - paddingR, midY, textWidth);
-    } else {
-        ctx.fillText(title, x + paddingL, midY, textWidth);
-    }
-    ctx.fill();
-    ctx.restore();
-
-    if (children?.length) {
-        let _x = x + 0;
-        let _y = y + height;
-        for (const c of children) {
-            renderTh(ctx, c, _x, _y);
-            _x += c.width;
-        }
-    }
-}
-
 export function genColumns(columns: IColumn[], baseConfig: BaseConfig, parent: Column | null = null, deep = 1) {
     const list: Column[] = [];
-    const { paddingL, paddingR } = getPaddingLR(baseConfig.paddingLR);
     for (const item of columns) {
         const instance = new Column(item, baseConfig, parent, deep);
         if (item.children?.length) {
@@ -94,9 +54,7 @@ export function genColumns(columns: IColumn[], baseConfig: BaseConfig, parent: C
             instance.width = width;
         }
 
-        instance.paddingL = paddingL;
-        instance.paddingR = paddingR;
-        instance.textWidth = getTextWidth(instance.width, paddingL, paddingR);
+        instance.textWidth = instance.width - baseConfig.padding[3] - baseConfig.padding[1];
         list.push(instance);
     }
     setThHeight(list, baseConfig.height);
@@ -117,10 +75,6 @@ export function flatColumns(columns: Column[]) {
         }
     }
     return list;
-}
-
-export function getTextWidth(width: number, paddingL: number, paddingR: number) {
-    return width - paddingR - paddingL;
 }
 
 /**
@@ -157,16 +111,4 @@ function setThHeight(columns: Column[], baseHeight: number, height?: number) {
             setThHeight(item.children, baseHeight, height);
         }
     }
-}
-
-export function getPaddingLR(paddingLR?: number | [number, number]) {
-    let paddingL = 8, paddingR = 8;
-    if (typeof paddingLR === 'number') {
-        paddingL = paddingLR;
-        paddingR = paddingLR;
-    } else if (paddingLR instanceof Array && typeof paddingLR[0] === 'number' && typeof paddingLR[1] === 'number') {
-        paddingL = paddingLR[0];
-        paddingR = paddingLR[1];
-    }
-    return { paddingL, paddingR };
 }

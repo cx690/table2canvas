@@ -1,7 +1,7 @@
 import { Canvas } from 'canvas';
-import Table2canvas from '.';
+import Table2canvas from './index.js';
 import fs from 'fs';
-import { IColumn } from './type';
+import { IColumn } from './type.js';
 
 const columns: IColumn[] = [
     {
@@ -15,9 +15,12 @@ const columns: IColumn[] = [
                 dataIndex: 'last',
                 render: (text, row, i) => {
                     if (i === 0) {
-                        return { text, rowSpan: 2 }
+                        return { text, rowSpan: 3 }
                     }
                     if (i === 1) {
+                        return { text, rowSpan: 0 }
+                    }
+                    if (i === 2) {
                         return { text, rowSpan: 0 }
                     }
                     return text;
@@ -71,10 +74,11 @@ const columns: IColumn[] = [
 ]
 
 const dataSource: any[] = [
-    { first: 'Jack', last: 'smith', age: 16, weight: 50, address: 'where', a: 'a1', b: 'b1', c: 'c1', d: 'd1' },
-    { first: 'Jack', last: 'smith', age: 26, weight: 60, address: 'where', a: 'a2', b: 'b2', c: 'c2', d: 'd2' },
-    { first: 'Jack', last: 'last', age: 36, weight: 70, address: 'where', a: 'merge-a+b', b: 'merge-a+b', c: 'c3', d: 'd3' },
+    { first: 'Jack', last: 'smith', age: 16, weight: 50, address: '1.somewhere\n2.somewhere', a: 'a1', b: 'b1', c: 'c1', d: 'd1' },
+    { first: 'Jack', last: 'smith', age: 26, weight: 60, address: 'street9527123456789no.,it is a to long adress!', a: 'a2', b: 'b2', c: 'c2', d: 'd2' },
+    { first: 'Jack', last: 'last', age: 36, weight: 70, address: 'where', a: 'merge-a+b\nline2\nline3', b: 'merge-a+b', c: 'c3', d: 'd3' },
     { first: 'Tom', last: 'last', age: 46, weight: 80, address: 'where', a: 'merge-a+b', b: 'merge-a+b', c: 'c4', d: 'd4' },
+    { first: 'Merge2Row', last: 'last', age: 25, weight: 60, address: 'where', a: 'a2', b: 'b2', c: 'c2', d: 'd2' },
 ]
 
 const table = new Table2canvas({
@@ -82,9 +86,10 @@ const table = new Table2canvas({
     columns: columns,
     dataSource: dataSource,
     bgColor: '#fff',
+    text: 'This is table title!',
 })
 
-table.appendData(dataSource);
+// table.appendData(dataSource);
 
 const buffer = table.canvas.toBuffer();
 

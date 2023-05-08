@@ -9,7 +9,7 @@ function getConfig(format) {
         input: {
             "index": './src/index.ts',
             "column": './src/column.ts',
-            "cell": './src/cell.ts',
+            "utils": './src/utils.ts',
         },
         output: {
             dir: format,

@@ -59,10 +59,6 @@ export interface CellInfo {
 }
 
 export interface TableStyle {
-    /** height of header cell default value of rowHeight */
-    headerRowHeight?: number;
-    /** height of each row default 55 */
-    rowHeight?: number;
     /** default width of all columns default 150 */
     columnWidth?: number;
     /** color of border default '#e8e8e8' */
@@ -77,8 +73,8 @@ export interface TableStyle {
     fontFamily?: string;
     /** background color of header cell default 'rgba(0,0,0,0.02)' */
     headerBgColor?: string;
-    /** both left and right padding of table cell  default 8*/
-    paddingLR?: number | [number, number];
+    /** padding of table cell  default 16*/
+    padding?: number | number[];
     /** table background*/
     background?: string | null;
 }
@@ -92,6 +88,6 @@ export interface TextStyle {
     fontFamily?: string;
     /** default 'center' */
     textAlign?: 'left' | 'right' | 'center';
-    /** default 55 */
+    /** default 22 */
     lineHeight?: number;
 }
