@@ -172,3 +172,4 @@ document.body.appendChild(table.canvas);
 | headerBgColor | background color of header cell | string | 'rgba(0,0,0,0.02)' | no |
 | background | background color of table | string | - | no|
 | padding | padding of table cell | number \| number[] | 16 | no |
+| lineHeight | text lineHeight | number | 22 | no |

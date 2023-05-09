@@ -13,12 +13,14 @@ const defaultStyle: Required<TableStyle> = {
     headerBgColor: 'rgba(0,0,0,0.02)',
     padding: 16,
     background: null,
+    lineHeight: 22,
 }
 
 class Table2canvas<T extends Record<string, any> = any>{
     canvas: Canvas;
     bgColor: string;
     text?: string;
+    /**table title  style */
     textStyle: TextStyle = { textAlign: 'center', lineHeight: 22 };
     sourceColumns: IColumn<T>[];
     columns: Column[];
@@ -31,7 +33,9 @@ class Table2canvas<T extends Record<string, any> = any>{
     top = 10;
     right = 10;
     bottom = 10;
+    /** table style include th and tr's all cell */
     style: Required<TableStyle>;
+    /** table padding */
     padding: [number, number, number, number];
     cellPadding: [number, number, number, number];
     width: number | 'auto';
@@ -60,11 +64,11 @@ class Table2canvas<T extends Record<string, any> = any>{
 
         const cellPadding = handlePadding(_style.padding);
         this.cellPadding = cellPadding;
-        const rowHeight = this.textStyle.lineHeight! + cellPadding[0] + cellPadding[2];
+        const rowHeight = _style.lineHeight! + cellPadding[0] + cellPadding[2];
         this.rowHeight = rowHeight;
 
         if (text) {
-            this.padding[0] += (this.textStyle.lineHeight! + cellPadding[0] + cellPadding[2]);
+            this.padding[0] += this.textStyle.lineHeight!;
         }
         this.left = this.padding[3];
         this.right = this.padding[1];
@@ -234,13 +238,14 @@ class Table2canvas<T extends Record<string, any> = any>{
 
     private renderTitle() {
         if (!this.text) return;
-        const { ctx, left, top, right, tableWidth, textStyle, text, rowHeight } = this;
-        const { fontSize, fontFamily, color, textAlign } = textStyle;
+        const { ctx, left, top, right, tableWidth, textStyle, text } = this;
+        const { fontSize, fontFamily, color, textAlign, lineHeight } = textStyle;
         ctx.save();
+        ctx.translate(left, top);
         ctx.font = `bold ${fontSize} ${fontFamily}`;
         ctx.fillStyle = color || '#333';
         ctx.textAlign = textAlign || 'center';
-        const midY = top - rowHeight * 0.5;
+        const midY = - lineHeight! * 0.5;
         const width = this.canvas.width;
         if (ctx.textAlign === 'center') {
             ctx.fillText(text, 0.5 * width, midY, tableWidth);
@@ -331,8 +336,8 @@ class Table2canvas<T extends Record<string, any> = any>{
     }
 
     private getTrHeight(row: Record<string, any>, i: number) {
-        const { ctx, rowHeight, flatColumns, textStyle, cellPadding: padding } = this;
-        const { lineHeight } = textStyle;
+        const { ctx, rowHeight, flatColumns, style, cellPadding: padding } = this;
+        const { lineHeight } = style;
         return Math.max(...flatColumns.map(({ config: item }) => {
             const { render, dataIndex, textOverflow } = item;
             const { fontSize = '14px', fontFamily } = item;

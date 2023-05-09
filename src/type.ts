@@ -77,6 +77,8 @@ export interface TableStyle {
     padding?: number | number[];
     /** table background*/
     background?: string | null;
+    /** default 22 */
+    lineHeight?: number;
 }
 
 export interface TextStyle {
