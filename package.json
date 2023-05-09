@@ -38,7 +38,8 @@
     "esm",
     "cjs",
     "demo.png",
-    "src"
+    "src",
+    "README.md"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
