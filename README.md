@@ -16,7 +16,8 @@ import fs from 'fs';
 
 const columns = [
     {
-        title: 'name', children: [
+        title: 'name',
+        children: [
             {
                 title: 'first',
                 dataIndex: 'first'
@@ -43,7 +44,8 @@ const columns = [
     { title: 'weight', dataIndex: 'weight', render: '{c}kg' },
     { title: 'address', dataIndex: 'address', width: 200 },
     {
-        title: 'other-abcd', children: [
+        title: 'other-abcd',
+        children: [
             {
                 title: 'a',
                 dataIndex: 'a',
