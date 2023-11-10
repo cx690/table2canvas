@@ -22,9 +22,8 @@ class Table2canvas<T extends Record<string, any> = any>{
     text?: string;
     /**table title  style */
     textStyle: TextStyle = { textAlign: 'center', lineHeight: 22 };
-    sourceColumns: IColumn<T>[];
-    columns: Column[];
-    flatColumns: Column[];
+    private columns: Column[];
+    private flatColumns: Column[];
     tableWidth = 0;
     tableHeight = 55;
     headHeight = 55;
@@ -45,7 +44,6 @@ class Table2canvas<T extends Record<string, any> = any>{
     ctx: CanvasRenderingContext2D;
     constructor({ canvas, padding, columns = [], dataSource = [], style, bgColor, text, textStyle, width, height }: TableOpt<T>) {
         this.canvas = canvas;
-        this.sourceColumns = columns;
         this.dataSource = dataSource || [];
         const _style = { ...defaultStyle, ...style };
         this.style = _style;
