@@ -103,7 +103,7 @@ const table = new Table2canvas({
 
 const buffer = table.canvas.toBuffer();
 
-fs.writeFileSync('a.png', buffer);
+fs.writeFileSync('demo.png', buffer);
 
 ```
 

@@ -212,20 +212,21 @@ class Table2canvas<T extends Record<string, any> = any>{
                 ctx.stroke();
                 ctx.restore();
                 if (text !== '') {
-                    text += '';
+                    if (text != null) {
+                        text += '';
+                    }
                     ctx.save();
                     const lineHeight = rowHeight - padding[0] - padding[2];
                     const maxTextHeight = height - padding[0] - padding[2];
                     const textWidth = width - padding[3] - padding[1];
-                    const textHeight = getTextHeight(ctx, { text, lineHeight, width: textWidth });
-                    ctx.translate(x + padding[3], padding[0] + (maxTextHeight - textHeight) / 2);
-                    if (textOverflow === 'ellipsis') {
-                        const fontsize = parseFloat(textFontSize ?? fontSize) || 14;
-                        text = getSubStr(text, textWidth, fontsize / 2);
-                    }
                     ctx.textAlign = textAlign ?? 'left';
                     textColor && (ctx.fillStyle = textColor);
                     ctx.font = `${textFontWeight ?? ''} ${textFontSize ?? fontSize} ${fontFamily}`;
+                    if (textOverflow === 'ellipsis' && text.length && ctx.measureText(text).width > textWidth) {
+                        text = getSubStr(ctx, text, textWidth);
+                    }
+                    const textHeight = getTextHeight(ctx, { text, lineHeight, width: textWidth });
+                    ctx.translate(x + padding[3], padding[0] + (maxTextHeight - textHeight) / 2);
                     fillTexts(ctx, { text: text, lineHeight, width: textWidth });
                     ctx.restore();
                 }
